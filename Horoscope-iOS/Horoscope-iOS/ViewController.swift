@@ -27,12 +27,11 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         
     }
     
-    /*override func viewWillAppear(<#T##animated: Bool##Bool#>)
-     super.viewWillAppear(animated)
-    
-    horoscopeTable.reloadData()
-    }*/
-    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            horoscopeTable.reloadData()
+        }
     
     
     @IBOutlet var horoscopeTable: UITableView!
@@ -46,20 +45,27 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : HoroscopeViewCell = horoscopeTable.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HoroscopeViewCell
-        cell.titleLabel?.text = list[indexPath.row].name
-        cell.subTitleLabel?.text = list[indexPath.row].date
-        cell.signImageView?.image = list [indexPath.row].image
+        
+        
+        cell.render(horoscope: list[indexPath.row])
         return cell
+        
+        
+        //items de la celda por separado
+        /*cell.titleLabel?.text = list[indexPath.row].name
+        cell.subTitleLabel?.text = list[indexPath.row].date
+        cell.signImageView?.image = list [indexPath.row].image*/
+        
     }
     
     
     
     
     //para altura tabla de diferentes tamaños de celdas
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-    return 120
-    }
+    return 115
+    }*/
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(list[indexPath.row])
