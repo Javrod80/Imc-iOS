@@ -12,7 +12,31 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     
     
     
- 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        self.horoscopeTable.delegate = self
+        self.horoscopeTable.dataSource = self
+       // horoscopeTable.rowHeight = 130  ---> para altura de celda sin hacer función.
+        
+        
+       
+        
+        
+        
+        
+    }
+    
+    /*override func viewWillAppear(<#T##animated: Bool##Bool#>)
+     super.viewWillAppear(animated)
+    
+    horoscopeTable.reloadData()
+    }*/
+    
+    
+    
+    @IBOutlet var horoscopeTable: UITableView!
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
@@ -28,71 +52,42 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
-  
-
-   
-    
-    
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        self.horoscopeTable.delegate = self
-        self.horoscopeTable.dataSource = self
-       // horoscopeTable.rowHeight = 130  ---> para altura de celda sin hacer función.
-        
-        
-        
-        
-        
-        
-        
-    }
-    
-    @IBOutlet var horoscopeTable: UITableView!
     
     
     
     //para altura tabla de diferentes tamaños de celdas
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-    return 130
+    return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("User selected cell....")
+        print(list[indexPath.row])
+        horoscopeTable.deselectRow(at: indexPath, animated: true)
         
         
     }
     
-    
+    //al ir a otra pantalla y pasar parametros
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
-        let indexPath =  horoscopeTable.indexPathForSelectedRow
-        if (indexPath != nil){
-            
-            
+        // es como un if pero para cuando puede devolver nulos
+        
+        guard let indexPath =  horoscopeTable.indexPathForSelectedRow else {
+            print("No horoscope selected")
+            return
         }
+        
+        let horoscope = list[indexPath.row]
+        let viewController: DetailViewController = segue.destination as! DetailViewController
+        
+        //declaro var en Detail
+        viewController.horoscope = horoscope
+        
         
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 
 }
 
